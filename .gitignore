@@ -1,0 +1,10 @@
+# Paquets générés par build.ps1 (publiés dans les Releases GitHub)
+dist/
+*.zip
+
+# Fichiers système / éditeurs
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

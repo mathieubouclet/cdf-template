@@ -1,0 +1,743 @@
+/* ==========================================================================
+   CoupDeFouet.fr – thème « pâtisserie maison » (template enfant de Cassiopeia)
+   Ce fichier remplace le user.css de Cassiopeia pour ce template.
+   ========================================================================== */
+
+/* ---------- Polices ----------
+   Fraunces (titres) et DM Sans (texte) ne sont pas encore hébergées sur le site :
+   en attendant, les titres utilisent Georgia et le texte la police du système.
+   Pour les ajouter : déposer les fichiers .woff2 dans ../fonts/ et déclarer ici
+   les @font-face correspondants. */
+
+/* ---------- Palette et variables ---------- */
+:root {
+  --cdf-cream: #FFFAF4;
+  --cdf-sand: #F5EADD;
+  --cdf-line: #EADFD2;
+  --cdf-choco: #2E1F17;
+  --cdf-text-soft: #5A4637;
+  --cdf-muted: #6B5646;
+  --cdf-accent: #A3214F;        /* framboise */
+  --cdf-accent-dark: #8A1C45;
+  --cdf-radius: 22px;
+  --cdf-max: 75rem;             /* 1200px */
+  --cdf-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --cdf-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Variables de Cassiopeia */
+  --cassiopeia-color-primary: var(--cdf-choco);
+  --cassiopeia-color-hover: var(--cdf-accent-dark);
+  --cassiopeia-color-link: var(--cdf-accent);
+  --cassiopeia-font-family-body: var(--cdf-sans);
+  --cassiopeia-font-family-headings: var(--cdf-serif);
+  --cassiopeia-font-weight-headings: 700;
+  --link-color: var(--cdf-accent);
+  --link-color-rgb: 163, 33, 79;
+  --link-hover-color: var(--cdf-accent-dark);
+  --link-hover-color-rgb: 138, 28, 69;
+  --body-bg: var(--cdf-cream);
+  --body-color: var(--cdf-choco);
+}
+
+body {
+  background-color: var(--cdf-cream);
+  color: var(--cdf-choco);
+  font-family: var(--cdf-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+h1, h2, h3, .h1, .h2, .h3 {
+  font-family: var(--cdf-serif);
+  color: var(--cdf-choco);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+h1, .h1 { font-size: clamp(2.2rem, 4vw + 1rem, 3.5rem); }
+h2, .h2 { font-size: clamp(1.7rem, 2vw + 1rem, 2.4rem); }
+
+a { color: var(--cdf-accent); }
+a:hover, a:focus { color: var(--cdf-accent-dark); }
+
+.btn-primary {
+  --btn-bg: var(--cdf-accent);
+  --btn-border-color: var(--cdf-accent);
+  --btn-hover-bg: var(--cdf-accent-dark);
+  --btn-hover-border-color: var(--cdf-accent-dark);
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   En-tête
+   ========================================================================== */
+.container-header {
+  background: var(--cdf-cream);
+  background-image: none;
+  box-shadow: none;
+  border-bottom: 1px solid var(--cdf-line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding: 0.9rem max(1.5rem, calc((100% - var(--cdf-max)) / 2));
+}
+.container-header > .grid-child {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  width: auto;
+}
+.container-header .navbar-brand {
+  padding: 0;
+  font-size: 1.65rem;
+}
+.container-header .navbar-brand a,
+.container-header .navbar-brand:hover a {
+  color: var(--cdf-choco);
+  text-decoration: none;
+  font-family: var(--cdf-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+/* Petit fouet devant le nom du site */
+.container-header .brand-logo::before {
+  content: "";
+  width: 34px;
+  height: 34px;
+  flex: none;
+  background-color: var(--cdf-accent);
+  -webkit-mask: url("../images/fouet.svg") center / contain no-repeat;
+  mask: url("../images/fouet.svg") center / contain no-repeat;
+}
+.container-header .site-description {
+  color: var(--cdf-muted);
+  font-size: 0.9rem;
+}
+
+.container-header .container-nav {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+}
+.container-header nav { margin-top: 0; }
+.container-header .mod-menu {
+  color: var(--cdf-choco);
+  font-weight: 500;
+  font-size: 0.97rem;
+}
+@media (width >= 992px) {
+  .container-header .mod-menu { justify-content: flex-end; }
+  .container-header .mod-menu > li + li { margin-left: 1.4em; }
+}
+.container-header .mod-menu > li > a { padding: 0.35rem 0; display: inline-block; }
+.container-header .mod-menu > li.active:after,
+.container-header .mod-menu > li:hover:after {
+  background: var(--cdf-accent);
+  opacity: 1;
+}
+.container-header .mod-menu > li.active > a { color: var(--cdf-accent); font-weight: 700; }
+
+/* Bouton menu mobile */
+.container-header .navbar-toggler {
+  color: var(--cdf-choco);
+  border: 1.5px solid var(--cdf-choco);
+  border-radius: 12px;
+  min-width: 44px;
+  min-height: 44px;
+}
+@media (width <= 991.98px) {
+  .container-header .container-nav { flex-basis: 100%; justify-content: flex-start; }
+  .container-header .mod-menu > li > a { padding: 0.6rem 0; }
+  .container-header .mod-menu .mod-menu__sub a { color: var(--cdf-choco); }
+}
+
+/* Recherche (module Recherche avancée en position « search ») */
+.container-header .container-search input[type="search"],
+.container-header .container-search input[type="text"] {
+  border: 1px solid #DCCFBF;
+  border-radius: 999px;
+  min-height: 44px;
+  padding-inline: 1rem;
+  background: #fff;
+}
+
+/* ==========================================================================
+   Grille générale
+   ========================================================================== */
+.site-grid { margin-top: 0; }
+.container-component,
+.container-sidebar-right,
+.container-sidebar-left { padding-top: 2rem; }
+
+.card {
+  background-color: #fff;
+  border: 1px solid var(--cdf-line);
+  border-radius: var(--cdf-radius);
+  box-shadow: none;
+}
+.card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--cdf-line);
+  font-family: var(--cdf-serif);
+}
+
+/* Fil d'Ariane */
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--cdf-muted);
+}
+.breadcrumb a { color: var(--cdf-muted); }
+
+/* ==========================================================================
+   Accueil : bloc d'accueil (module personnalisé en position « banner »)
+   ========================================================================== */
+.container-banner { padding: 0; }
+.cdf-hero {
+  max-width: var(--cdf-max);
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3rem;
+}
+.cdf-hero__text {
+  flex: 1 1 26rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+.cdf-hero__media { flex: 1 1 26rem; margin: 0; }
+.cdf-hero__media img {
+  width: 100%;
+  height: clamp(16rem, 32vw, 27rem);
+  object-fit: cover;
+  border-radius: 28px;
+  display: block;
+}
+.cdf-hero h1 { margin: 0; }
+.cdf-hero p { margin: 0; font-size: 1.125rem; color: var(--cdf-text-soft); max-width: 34rem; }
+
+.cdf-kicker {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cdf-accent);
+}
+.cdf-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
+.cdf-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1.5px solid var(--cdf-choco);
+  color: var(--cdf-choco);
+}
+.cdf-btn:hover { background: var(--cdf-choco); color: #fff; }
+.cdf-btn--primary { background: var(--cdf-accent); border-color: var(--cdf-accent); color: #fff; }
+.cdf-btn--primary:hover { background: var(--cdf-accent-dark); border-color: var(--cdf-accent-dark); color: #fff; }
+
+/* ==========================================================================
+   Accueil : grille des catégories (module personnalisé en position « top-a »)
+   ========================================================================== */
+.card:has(.cdf-cats) {
+  background: none;
+  border: 0;
+}
+.card:has(.cdf-cats) > .card-body { padding: 0; }
+.cdf-section-title { margin: 1rem 0 1.6rem; }
+.cdf-cats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Carte générique : catégories (accueil) et recettes (pages catégorie) */
+.cdf-card,
+.cdf-cats > li {
+  background: #fff;
+  border: 1px solid var(--cdf-line);
+  border-radius: var(--cdf-radius);
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.cdf-card:hover,
+.cdf-cats > li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(46, 31, 23, .10);
+}
+.cdf-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: var(--cdf-choco);
+  text-decoration: none;
+}
+.cdf-card__link:hover { color: var(--cdf-accent); }
+.cdf-card__media {
+  display: block;
+  aspect-ratio: 3 / 2;
+  background: #E9D7C3;
+  overflow: hidden;
+}
+.cdf-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cdf-card__title {
+  margin: 0;
+  padding: 1.1rem 1.25rem 0.3rem;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+.cdf-card__desc {
+  display: block;
+  padding: 0 1.25rem 1.2rem;
+  font-size: 0.93rem;
+  color: var(--cdf-muted);
+}
+.cdf-card__title:last-child { padding-bottom: 1.2rem; }
+
+/* ==========================================================================
+   Pages catégorie (vue blog)
+   ========================================================================== */
+.com-content-category-blog > h1,
+.com-content-category-blog > h2 { margin-bottom: 1.5rem; }
+.com-content-category-blog .blog-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 1.5rem;
+}
+.com-content-category-blog .blog-items > .blog-item {
+  width: auto;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: 0;
+}
+.com-content-category-blog .cdf-card { height: 100%; }
+.com-content-category-blog .cdf-card__title { font-size: 1.2rem; }
+
+/* Sous-catégories (ex. « Crèmes ») : affichées en haut de la page, avant les recettes */
+.com-content-category-blog {
+  display: flex;
+  flex-direction: column;
+}
+.com-content-category-blog > h1,
+.com-content-category-blog > .page-header { order: -3; }
+.com-content-category-blog > .category-desc { order: -2; }
+.com-content-category-blog > .cat-children {
+  order: -1;
+  margin-bottom: 2.5rem;
+}
+.com-content-category-blog > .cat-children > h3 { display: none; }
+.com-content-category-blog .cdf-subcats {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+}
+.cdf-subcats .cdf-card__title { font-size: 1.35rem; }
+.cdf-subcats .cdf-card__desc {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cdf-accent);
+}
+.cdf-subcats__desc {
+  padding: 0 1.25rem 1.2rem;
+  font-size: 0.93rem;
+  color: var(--cdf-muted);
+}
+.cdf-subcats__desc > :last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   Accueil : dernières recettes (module « Articles », classe cdf-latest)
+   ========================================================================== */
+.card.cdf-latest {
+  background: var(--cdf-sand);
+  border: 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 2rem;
+}
+.card.cdf-latest > .card-header {
+  border: 0;
+  padding: 0 0 1.5rem;
+  font-size: clamp(1.7rem, 2vw + 1rem, 2.4rem);
+}
+.card.cdf-latest > .card-body { padding: 0; }
+.cdf-latest .mod-articles-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cdf-latest .mod-articles-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.cdf-latest .item-image,
+.cdf-latest figure { order: -1; margin: 0; }
+.cdf-latest .item-image img,
+.cdf-latest figure img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+}
+.cdf-latest .mod-articles-title {
+  font-family: var(--cdf-serif);
+  font-size: 1.3rem;
+  margin: 0;
+}
+.cdf-latest .mod-articles-title a { color: var(--cdf-choco); text-decoration: none; }
+.cdf-latest .mod-articles-title a:hover { color: var(--cdf-accent); }
+.cdf-latest dl { margin: 0; font-size: 0.8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.cdf-latest dl a { color: var(--cdf-accent); text-decoration: none; }
+.cdf-latest .mod-articles-date { display: none; }
+
+/* ==========================================================================
+   Page recette (article)
+   ========================================================================== */
+.com-content-article .page-header h1,
+.com-content-article .page-header h2 {
+  font-size: clamp(2.2rem, 4vw + 1rem, 3.6rem);
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Les anciennes recettes contiennent des couleurs et tailles écrites « en dur »
+   (bleu #236FA1, soulignés…) : on les neutralise pour garder un style homogène. */
+.com-content-article__body [style*="color"] { color: inherit !important; }
+.com-content-article__body span[style*="font-size"] { font-size: inherit !important; }
+.com-content-article__body span[style*="underline"] { text-decoration: none !important; }
+.com-content-article__body p[style*="padding-left"] { padding-left: 0 !important; }
+
+/* Titre saisi dans le texte, transformé en H1 par user.js */
+.com-content-article__body .cdf-title {
+  font-size: clamp(2.2rem, 4vw + 1rem, 3.6rem);
+  margin: 0.5rem 0 1.5rem;
+}
+
+.com-content-article__body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 24px;
+}
+.com-content-article__body > p:has(> img:only-child) { margin: 0 0 2rem; }
+
+/* Titres de rubrique (« Ingrédients », « Préparation »…), repérés par user.js */
+.com-content-article__body .cdf-subtitle {
+  font-family: var(--cdf-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 2.5rem 0 1rem;
+  color: var(--cdf-choco);
+}
+.com-content-article__body .cdf-subtitle strong { font-weight: inherit; }
+
+/* Encadrés d'infos (difficulté, cuisson…) */
+.com-content-article__body ul.cdf-infos {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+  gap: 0.75rem;
+}
+.com-content-article__body ul.cdf-infos > li {
+  background: #fff;
+  border: 1px solid var(--cdf-line);
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.cdf-infos .cdf-infos__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--cdf-muted);
+  margin-bottom: 0.3rem;
+}
+
+/* Ingrédients à cocher */
+.com-content-article__body ul.cdf-ingredients {
+  list-style: none;
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 1rem;
+  background: var(--cdf-sand);
+  border-radius: var(--cdf-radius);
+  max-width: 34rem;
+}
+.cdf-ingredients > li {
+  border-bottom: 1px solid #E3D3C1;
+}
+.cdf-ingredients > li:last-child { border-bottom: 0; }
+.cdf-ingredients label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+.cdf-ingredients input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  flex: none;
+  accent-color: var(--cdf-accent);
+}
+.cdf-ingredients input:checked + span { color: var(--cdf-muted); text-decoration: line-through; }
+
+/* Sous-parties (« Pour la pâte », « La crème pâtissière »…) */
+.com-content-article__body .cdf-group-title {
+  font-family: var(--cdf-sans);
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0;
+  color: var(--cdf-accent);
+  margin: 1.8rem 0 0.7rem;
+}
+/* Étapes numérotées (paragraphe découpé par user.js) */
+.com-content-article__body ol.cdf-steps {
+  list-style: none;
+  counter-reset: cdf-step;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.cdf-steps > li {
+  counter-increment: cdf-step;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.cdf-steps > li::before {
+  content: counter(cdf-step);
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  background: var(--cdf-choco);
+  color: var(--cdf-cream);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+/* ==========================================================================
+   Fiche « recettes en chaîne » (ex. : les 3 crèmes de base)
+   Chaque étape réutilise la préparation de l'étape précédente.
+   ========================================================================== */
+.cdf-chain {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+.cdf-chain__step {
+  background: #fff;
+  border: 1px solid var(--cdf-line);
+  border-radius: var(--cdf-radius);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  scroll-margin-top: 2rem;
+}
+.cdf-chain__head {
+  flex: 1 1 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+.cdf-chain__num {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  background: var(--cdf-choco);
+  color: var(--cdf-cream);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.com-content-article__body .cdf-chain__head h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 1.5vw + 1rem, 2rem);
+}
+.cdf-chain__head p {
+  margin: 0;
+  color: var(--cdf-text-soft);
+}
+.cdf-chain__head img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-top: 0.4rem;
+}
+.cdf-chain__more {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* Ingrédients de l'étape */
+.com-content-article__body ul.cdf-chain__ingredients {
+  flex: 2 1 22rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  gap: 0.75rem;
+  align-content: start;
+}
+.cdf-chain__ingredients > li {
+  background: var(--cdf-sand);
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  line-height: 1.3;
+}
+.cdf-chain__qty {
+  font-family: var(--cdf-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+.cdf-chain__note {
+  font-size: 0.8rem;
+  color: var(--cdf-muted);
+  margin-top: 0.2rem;
+}
+
+/* L'ingrédient qui vient de l'étape précédente */
+.cdf-chain__ingredients > li.cdf-chain__base {
+  background: #F8E6EC;
+  border-color: var(--cdf-accent);
+}
+.cdf-chain__from {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--cdf-accent);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  margin-bottom: 0.35rem;
+  text-decoration: none;
+}
+a.cdf-chain__from:hover { background: var(--cdf-accent-dark); color: #fff; }
+
+/* Flèche entre deux étapes */
+.cdf-chain__arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.4rem 0;
+  color: var(--cdf-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+}
+.cdf-chain__arrow::before {
+  content: "";
+  width: 2px;
+  height: 1.6rem;
+  background: var(--cdf-accent);
+}
+.cdf-chain__arrow::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid var(--cdf-accent);
+}
+.cdf-chain__arrow span { padding: 0.3rem 0; }
+
+/* Navigation Précédent / Suivant */
+.pagenavigation .btn {
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid var(--cdf-choco);
+  color: var(--cdf-choco);
+  padding: 0.5rem 1.1rem;
+}
+.pagenavigation .btn:hover { background: var(--cdf-choco); color: #fff; }
+
+/* ==========================================================================
+   Colonne de droite (« Liste recettes »)
+   ========================================================================== */
+.container-sidebar-right .mod-articles-title {
+  font-family: var(--cdf-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+.container-sidebar-right .mod-articles-items > li + li {
+  border-top: 1px solid var(--cdf-line);
+  padding-top: 0.7rem;
+  margin-top: 0.7rem;
+}
+.container-sidebar-right .mod-articles-date { display: none; }
+
+/* ==========================================================================
+   Pied de page
+   ========================================================================== */
+.container-footer {
+  background: var(--cdf-choco);
+  background-image: none;
+  color: var(--cdf-sand);
+  margin-top: 4rem;
+}
+.container-footer .grid-child { padding: 2.5rem 1.5rem; }
+.container-footer a { color: var(--cdf-sand); }
+.container-footer a:hover { color: #fff; }
+.container-footer .cdf-credits {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #D9C8B6;
+}
+.container-footer .cdf-credits a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Bouton retour en haut */
+.back-to-top-link {
+  background: var(--cdf-accent);
+  border-radius: 999px;
+}
