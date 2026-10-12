@@ -19,7 +19,7 @@ il ne réécrit pas Cassiopeia, il le personnalise, donc les mises à jour de Jo
 | `contenus/recettes/` | Modèle de recette et exemples |
 | `images/` | Photos retravaillées pour le site |
 | `docs/` | Guide de mise en place dans l'administration Joomla |
-| `build.ps1` | Fabrique le paquet `.zip` à installer |
+| `build.sh` / `build.ps1` | Fabriquent le paquet `.zip` à installer (bash ou PowerShell, au choix) |
 
 ## Installer
 
@@ -38,13 +38,17 @@ dans l'article via **« Afficher/masquer l'éditeur »**. Le thème reconnaît l
 
 ## Publier une nouvelle version
 
-```powershell
-.\build.ps1 -Version 1.0.6       # met à jour templateDetails.xml et crée dist\tpl_cassiopeia_cdf-1.0.6.zip
+```bash
+./build.sh 1.0.6                 # met à jour templateDetails.xml et crée dist/tpl_cassiopeia_cdf-1.0.6.zip
+                                 # (équivalent PowerShell : .\build.ps1 -Version 1.0.6)
 git add -A
 git commit -m "Description du changement"
 git tag v1.0.6
 git push --follow-tags
 ```
+
+`build.sh` fonctionne dans WSL, Linux, macOS et Git Bash : il utilise `zip` s'il est installé,
+sinon `tar.exe` de Windows (Git Bash) ou Python.
 
 Puis, sur GitHub, créer une **Release** à partir du tag `v1.0.6` et y joindre le zip du dossier `dist/`.
 Noter les changements dans [CHANGELOG.md](CHANGELOG.md).
